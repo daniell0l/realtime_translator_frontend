@@ -348,28 +348,46 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
   }
 }
 
-class _InputShell extends StatelessWidget {
+class _InputShell extends StatefulWidget {
   final Widget child;
   final double borderRadius;
 
   const _InputShell({required this.child, this.borderRadius = 30});
 
   @override
+  State<_InputShell> createState() => _InputShellState();
+}
+
+class _InputShellState extends State<_InputShell> {
+  bool _isHovered = false;
+
+  @override
   Widget build(BuildContext context) {
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(borderRadius),
-        boxShadow: const [
-          BoxShadow(
-            color: AppColors.shadow,
-            blurRadius: 18,
-            offset: Offset(0, 8),
+    return MouseRegion(
+      cursor: SystemMouseCursors.text,
+      onEnter: (_) => setState(() => _isHovered = true),
+      onExit: (_) => setState(() => _isHovered = false),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        curve: Curves.easeOut,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(widget.borderRadius),
+          border: Border.all(
+            color: _isHovered ? const Color(0x558C53F9) : Colors.transparent,
+            width: 1.2,
           ),
-        ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(borderRadius),
-        child: ColoredBox(color: AppColors.surface, child: child),
+          boxShadow: [
+            BoxShadow(
+              color: _isHovered ? const Color(0x264F5D95) : AppColors.shadow,
+              blurRadius: _isHovered ? 50 : 16,
+              offset: Offset(0, _isHovered ? 10 : 8),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(widget.borderRadius),
+          child: ColoredBox(color: AppColors.surface, child: widget.child),
+        ),
       ),
     );
   }
