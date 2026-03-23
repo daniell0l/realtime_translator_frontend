@@ -14,11 +14,11 @@ class AppBackground extends StatelessWidget {
       child: Stack(
         children: [
           const Positioned(
-            top: -70,
-            left: -90,
+            bottom: -105,
+            left: -129,
             child: _BlurBubble(
               size: 220,
-              colors: [AppColors.gradientEnd, AppColors.gradientStart],
+              colors: [Color(0x22305CF0), Color(0x228C53F9)],
             ),
           ),
           const Positioned(
