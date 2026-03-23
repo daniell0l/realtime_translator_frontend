@@ -7,6 +7,10 @@ class GradientButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final Gradient gradient;
   final bool isLoading;
+  final EdgeInsetsGeometry padding;
+  final double borderRadius;
+  final double fontSize;
+  final FontWeight fontWeight;
 
   const GradientButton({
     super.key,
@@ -14,6 +18,10 @@ class GradientButton extends StatelessWidget {
     required this.onPressed,
     this.gradient = AppColors.primaryGradient,
     this.isLoading = false,
+    this.padding = const EdgeInsets.symmetric(vertical: 18),
+    this.borderRadius = 28,
+    this.fontSize = 18,
+    this.fontWeight = FontWeight.w700,
   });
 
   @override
@@ -21,7 +29,7 @@ class GradientButton extends StatelessWidget {
     return DecoratedBox(
       decoration: BoxDecoration(
         gradient: gradient,
-        borderRadius: BorderRadius.circular(28),
+        borderRadius: BorderRadius.circular(borderRadius),
         boxShadow: const [
           BoxShadow(
             color: Color(0x3D7B61FF),
@@ -36,9 +44,9 @@ class GradientButton extends StatelessWidget {
           backgroundColor: Colors.transparent,
           shadowColor: Colors.transparent,
           disabledBackgroundColor: Colors.transparent,
-          padding: const EdgeInsets.symmetric(vertical: 18),
+          padding: padding,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(28),
+            borderRadius: BorderRadius.circular(borderRadius),
           ),
         ),
         child: isLoading
@@ -52,10 +60,10 @@ class GradientButton extends StatelessWidget {
               )
             : Text(
                 label,
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.white,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+                  fontSize: fontSize,
+                  fontWeight: fontWeight,
                 ),
               ),
       ),

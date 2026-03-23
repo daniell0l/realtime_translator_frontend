@@ -28,7 +28,7 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
   final nameController = TextEditingController();
   late final TextEditingController roomCodeController;
   bool obscureCode = false;
-  String? _lastErrorMessage;
+  String? lastErrorMessage;
 
   @override
   void initState() {
@@ -37,6 +37,7 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
       text: widget.initialRoomCode ?? '',
     );
     sessionController.addListener(_handleControllerChanges);
+
     if (widget.autoCreateRoom) {
       WidgetsBinding.instance.addPostFrameCallback((_) {
         handleCreateRoom();
@@ -57,8 +58,8 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
     if (!mounted) return;
 
     final errorMessage = sessionController.errorMessage;
-    if (errorMessage != null && errorMessage != _lastErrorMessage) {
-      _lastErrorMessage = errorMessage;
+    if (errorMessage != null && errorMessage != lastErrorMessage) {
+      lastErrorMessage = errorMessage;
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(errorMessage)));
@@ -130,127 +131,98 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: AppBackground(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
+        child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 12),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(22),
-                  onTap: () => Navigator.pop(context),
-                  child: Ink(
-                    width: 44,
-                    height: 44,
-                    decoration: const BoxDecoration(
-                      color: Color(0x1FEDE7FF),
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(Icons.arrow_back_rounded),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 18),
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.fromLTRB(22, 22, 22, 26),
-                decoration: BoxDecoration(
-                  gradient: AppColors.primaryGradient,
-                  borderRadius: BorderRadius.circular(30),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0x267658EE),
-                      blurRadius: 28,
-                      offset: Offset(0, 18),
-                    ),
-                  ],
-                ),
-                child: const Text(
-                  'Entrar na sala',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 44),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Seu nome',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-              ),
-              const SizedBox(height: 12),
-              _InputShell(
-                child: TextField(
-                  controller: nameController,
-                  textInputAction: TextInputAction.next,
-                  decoration: const InputDecoration(
-                    prefixIcon: Icon(Icons.person_outline_rounded),
-                    hintText: 'Mariana Silva',
-                  ),
-                ),
-              ),
-              const SizedBox(height: 26),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Codigo da sala',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                ),
-              ),
-              const SizedBox(height: 12),
-              _InputShell(
-                child: TextField(
-                  controller: roomCodeController,
-                  textInputAction: TextInputAction.done,
-                  textCapitalization: TextCapitalization.characters,
-                  obscureText: obscureCode,
-                  decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.qr_code_2_rounded),
-                    hintText: 'CHR-7X9B',
-                    suffixIcon: IconButton(
-                      onPressed: () =>
-                          setState(() => obscureCode = !obscureCode),
-                      icon: Icon(
-                        obscureCode
-                            ? Icons.visibility_off_outlined
-                            : Icons.visibility_outlined,
+              const _JoinHeader(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Column(
+                  children: [
+                    const SizedBox(height: 34),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Seu nome',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
-                  ),
-                  onSubmitted: (_) => handleJoinRoom(),
+                    const SizedBox(height: 12),
+                    _InputShell(
+                      child: TextField(
+                        controller: nameController,
+                        textInputAction: TextInputAction.next,
+                        decoration: const InputDecoration(
+                          prefixIcon: Icon(Icons.person_outline_rounded),
+                          hintText: 'Mariana Silva',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    const Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        'Codigo da sala',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 12),
+                    _InputShell(
+                      child: TextField(
+                        controller: roomCodeController,
+                        textInputAction: TextInputAction.done,
+                        textCapitalization: TextCapitalization.characters,
+                        obscureText: obscureCode,
+                        decoration: InputDecoration(
+                          prefixIcon: const Icon(Icons.qr_code_2_rounded),
+                          hintText: 'CHR-7X9B',
+                          suffixIcon: IconButton(
+                            onPressed: () =>
+                                setState(() => obscureCode = !obscureCode),
+                            icon: Icon(
+                              obscureCode
+                                  ? Icons.visibility_off_outlined
+                                  : Icons.visibility_outlined,
+                            ),
+                          ),
+                        ),
+                        onSubmitted: (_) => handleJoinRoom(),
+                      ),
+                    ),
+                    const SizedBox(height: 48),
+                    SizedBox(
+                      width: double.infinity,
+                      child: GradientButton(
+                        label: 'Entrar agora',
+                        gradient: AppColors.ctaGradient,
+                        onPressed: handleJoinRoom,
+                        isLoading: sessionController.isLoading,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    TextButton(
+                      onPressed: sessionController.isLoading
+                          ? null
+                          : handleCreateRoom,
+                      child: const Text(
+                        'Criar nova sala',
+                        style: TextStyle(
+                          color: AppColors.textPrimary,
+                          decoration: TextDecoration.underline,
+                          fontSize: 17,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 18),
+                  ],
                 ),
               ),
-              const Spacer(),
-              SizedBox(
-                width: double.infinity,
-                child: GradientButton(
-                  label: 'Entrar agora',
-                  gradient: AppColors.ctaGradient,
-                  onPressed: handleJoinRoom,
-                  isLoading: sessionController.isLoading,
-                ),
-              ),
-              const SizedBox(height: 14),
-              TextButton(
-                onPressed: sessionController.isLoading
-                    ? null
-                    : handleCreateRoom,
-                child: const Text(
-                  'Criar nova sala',
-                  style: TextStyle(
-                    color: AppColors.textPrimary,
-                    decoration: TextDecoration.underline,
-                    fontSize: 17,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
             ],
           ),
         ),
@@ -279,6 +251,70 @@ class _InputShell extends StatelessWidget {
         ],
       ),
       child: child,
+    );
+  }
+}
+
+class _JoinHeader extends StatelessWidget {
+  const _JoinHeader();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.fromLTRB(16, 16, 16, 22),
+      decoration: const BoxDecoration(
+        gradient: AppColors.primaryGradient,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(30),
+          bottomRight: Radius.circular(30),
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Color(0x33735AF4),
+            blurRadius: 24,
+            offset: Offset(0, 14),
+          ),
+        ],
+      ),
+      child: SafeArea(
+        bottom: false,
+        child: SizedBox(
+          height: 56,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(24),
+                  onTap: () => Navigator.pop(context),
+                  child: Ink(
+                    width: 44,
+                    height: 44,
+                    decoration: BoxDecoration(
+                      color: Colors.white24,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.arrow_back_rounded,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const Text(
+                'Entrar na sala',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 21,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
