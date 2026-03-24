@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                               letterSpacing: -0.1 * scale,
                             ),
                           ),
-                          SizedBox(height: 50 * scale * verticalSpacing),
+                          SizedBox(height: 25 * scale * verticalSpacing),
                           SizedBox(
                             width: 244 * scale,
                             child: GradientButton(

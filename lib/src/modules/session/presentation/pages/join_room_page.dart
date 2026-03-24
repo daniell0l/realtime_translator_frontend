@@ -141,12 +141,11 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
             final scale = layoutWidth / _designWidth;
             final formWidth = 244 * scale;
 
-            return SizedBox(
-              height: constraints.maxHeight,
-              child: Column(
-                children: [
-                  _JoinHeader(scale: scale),
-                  Expanded(
+            return Column(
+              children: [
+                _JoinHeader(scale: scale),
+                Expanded(
+                  child: SingleChildScrollView(
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: SizedBox(
@@ -154,11 +153,12 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                         child: Padding(
                           padding: EdgeInsets.fromLTRB(
                             5 * scale,
-                            72 * scale,
+                            60 * scale,
                             5 * scale,
-                            16 * scale,
+                            30 * scale, // Aumentado para dar espaço ao fim do scroll
                           ),
                           child: Column(
+                            mainAxisSize: MainAxisSize.min,
                             children: [
                               Align(
                                 alignment: Alignment.centerLeft,
@@ -200,7 +200,7 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                                         ),
                                       ),
                                       prefixIconConstraints: BoxConstraints(
-                                        minWidth: 52 * scale,
+                                        minWidth: 50 * scale,
                                         minHeight: 0,
                                       ),
                                       hintText: 'Daniel Medrado',
@@ -217,7 +217,7 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 20 * scale),
+                              SizedBox(height: 15 * scale),
                               Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -241,10 +241,9 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                                         TextCapitalization.characters,
                                     obscureText: obscureCode,
                                     style: TextStyle(
-                                      fontSize: 16 * scale,
+                                      fontSize: 15 * scale,
                                       fontWeight: FontWeight.w500,
                                       color: AppColors.textPrimary,
-                                      letterSpacing: 0.5,
                                     ),
                                     decoration: InputDecoration(
                                       filled: false,
@@ -301,7 +300,7 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: 46 * scale),
+                              SizedBox(height: 26 * scale),
                               SizedBox(
                                 width: formWidth,
                                 child: GradientButton(
@@ -310,14 +309,14 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                                   padding: EdgeInsets.symmetric(
                                     vertical: 16 * scale,
                                   ),
-                                  borderRadius: 25 * scale,
+                                  borderRadius: 50 * scale,
                                   fontSize: 17 * scale,
                                   fontWeight: FontWeight.w800,
                                   onPressed: handleJoinRoom,
                                   isLoading: sessionController.isLoading,
                                 ),
                               ),
-                              SizedBox(height: 12 * scale),
+                              SizedBox(height: 10 * scale),
                               TextButton(
                                 onPressed: sessionController.isLoading
                                     ? null
@@ -338,8 +337,8 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           },
         ),
