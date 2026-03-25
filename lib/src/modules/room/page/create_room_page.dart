@@ -5,11 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:realtime_translator_frontend/src/core/routes/app_routes.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
 import 'package:realtime_translator_frontend/src/modules/room/controller/create_room_controller.dart';
-import 'package:realtime_translator_frontend/src/modules/room/widgets/create_room_field_label.dart';
 import 'package:realtime_translator_frontend/src/modules/room/widgets/create_room_generated_code_box.dart';
-import 'package:realtime_translator_frontend/src/modules/room/widgets/create_room_header.dart';
-import 'package:realtime_translator_frontend/src/modules/room/widgets/create_room_input_box.dart';
 import 'package:realtime_translator_frontend/src/modules/room/widgets/create_room_privacy_card.dart';
+import 'package:realtime_translator_frontend/src/modules/room/widgets/room_field_label.dart';
+import 'package:realtime_translator_frontend/src/modules/room/widgets/room_header.dart';
+import 'package:realtime_translator_frontend/src/modules/room/widgets/room_input_box.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/gradient_button.dart';
 
 class CreateRoomPage extends StatefulWidget {
@@ -70,7 +70,11 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
             builder: (context, _) {
               return Column(
                 children: [
-                  CreateRoomHeader(scale: scale, onBack: _handleBack),
+                  RoomHeader(
+                    scale: scale,
+                    title: 'Criar sala',
+                    onBack: _handleBack,
+                  ),
                   Expanded(
                     child: SingleChildScrollView(
                       padding: EdgeInsets.fromLTRB(
@@ -95,12 +99,12 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 ),
                               ),
                               SizedBox(height: 16 * scale),
-                              CreateRoomFieldLabel(
+                              RoomFieldLabel(
                                 label: 'Seu nome',
                                 scale: scale,
                               ),
                               SizedBox(height: 10 * scale),
-                              CreateRoomInputBox(
+                              RoomInputBox(
                                 scale: scale,
                                 child: TextField(
                                   controller: controller.nameController,
@@ -114,12 +118,12 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 ),
                               ),
                               SizedBox(height: 22 * scale),
-                              CreateRoomFieldLabel(
+                              RoomFieldLabel(
                                 label: 'Nome da sala',
                                 scale: scale,
                               ),
                               SizedBox(height: 10 * scale),
-                              CreateRoomInputBox(
+                              RoomInputBox(
                                 scale: scale,
                                 child: TextField(
                                   controller: controller.roomNameController,
@@ -133,7 +137,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 ),
                               ),
                               SizedBox(height: 22 * scale),
-                              CreateRoomFieldLabel(
+                              RoomFieldLabel(
                                 label: 'Codigo gerado',
                                 scale: scale,
                               ),
@@ -154,7 +158,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 ],
                               ),
                               SizedBox(height: 22 * scale),
-                              CreateRoomFieldLabel(
+                              RoomFieldLabel(
                                 label: 'Privacidade',
                                 scale: scale,
                               ),

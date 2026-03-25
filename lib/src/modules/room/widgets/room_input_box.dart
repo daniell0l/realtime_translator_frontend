@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
 
-class CreateRoomInputBox extends StatefulWidget {
+class RoomInputBox extends StatefulWidget {
   final double scale;
   final Widget child;
 
-  const CreateRoomInputBox({
+  const RoomInputBox({
     super.key,
     required this.scale,
     required this.child,
   });
 
   @override
-  State<CreateRoomInputBox> createState() => _CreateRoomInputBoxState();
+  State<RoomInputBox> createState() => _RoomInputBoxState();
 }
 
-class _CreateRoomInputBoxState extends State<CreateRoomInputBox> {
+class _RoomInputBoxState extends State<RoomInputBox> {
   bool _hasFocus = false;
 
   @override

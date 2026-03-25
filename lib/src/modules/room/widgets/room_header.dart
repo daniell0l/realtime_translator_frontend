@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
 
-class CreateRoomHeader extends StatelessWidget {
+class RoomHeader extends StatelessWidget {
   final double scale;
+  final String title;
   final VoidCallback onBack;
 
-  const CreateRoomHeader({
+  const RoomHeader({
     super.key,
     required this.scale,
+    required this.title,
     required this.onBack,
   });
 
@@ -62,7 +64,7 @@ class CreateRoomHeader extends StatelessWidget {
                 ),
               ),
               Text(
-                'Criar sala',
+                title,
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 21 * scale,

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
 
-class CreateRoomFieldLabel extends StatelessWidget {
+class RoomFieldLabel extends StatelessWidget {
   final String label;
   final double scale;
 
-  const CreateRoomFieldLabel({
+  const RoomFieldLabel({
     super.key,
     required this.label,
     required this.scale,
