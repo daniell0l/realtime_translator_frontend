@@ -3,9 +3,9 @@ import 'package:realtime_translator_frontend/src/core/routes/app_routes.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_theme.dart';
 import 'package:realtime_translator_frontend/src/modules/chat/presentation/pages/chat_page.dart';
 import 'package:realtime_translator_frontend/src/modules/profile/profile_page.dart';
-import 'package:realtime_translator_frontend/src/modules/room/create_room_page.dart';
-import 'package:realtime_translator_frontend/src/modules/room/join_room_page.dart';
-import 'package:realtime_translator_frontend/src/modules/room/participants_page.dart';
+import 'package:realtime_translator_frontend/src/modules/room/page/create_room_page.dart';
+import 'package:realtime_translator_frontend/src/modules/room/page/join_room_page.dart';
+import 'package:realtime_translator_frontend/src/modules/room/page/participants_page.dart';
 import 'package:realtime_translator_frontend/src/modules/welcome/page/welcome_page.dart';
 
 void main() {

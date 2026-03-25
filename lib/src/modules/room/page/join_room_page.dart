@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:realtime_translator_frontend/src/core/routes/app_routes.dart';
-// import 'package:realtime_translator_frontend/src/shared/widgets/app_button.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/app_card.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/app_input.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/gradient_button.dart';

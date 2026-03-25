@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
-// import 'package:realtime_translator_frontend/src/shared/widgets/app_button.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/app_card.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/gradient_button.dart';
 
@@ -75,7 +74,6 @@ class ProfilePage extends StatelessWidget {
               const Spacer(),
               GradientButton(
                 label: 'Sair',
-                // outlined: true,
                 onPressed: () =>
                     Navigator.popUntil(context, (route) => route.isFirst),
               ),
