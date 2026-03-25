@@ -44,7 +44,6 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                 label: 'Entrar agora',
                 onPressed: () => Navigator.pushNamed(context, AppRoutes.chat),
               ),
-              const SizedBox(height: 14),
               TextButton(
                 onPressed: () =>
                     Navigator.pushNamed(context, AppRoutes.createRoom),
