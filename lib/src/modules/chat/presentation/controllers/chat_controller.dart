@@ -12,6 +12,8 @@ class ChatController extends ChangeNotifier {
   String? errorMessage;
 
   void connect({required String sessionId}) {
+    if (isConnected) return;
+
     socketService.connect();
     socketService.joinRoom(sessionId);
 

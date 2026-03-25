@@ -2,11 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
-import '../../../../shared/theme/app_colors.dart';
+import '../../../../core/theme/app_colors.dart';
 import '../../../../shared/widgets/app_background.dart';
 import '../../../../shared/widgets/gradient_button.dart';
-import '../../../chat/data/services/chat_socket_service.dart';
-import '../../../chat/presentation/controllers/chat_controller.dart';
 import '../../../chat/presentation/pages/chat_page.dart';
 import '../../data/services/session_api_service.dart';
 import '../controllers/session_controller.dart';
@@ -113,19 +111,10 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
       return;
     }
 
-    final chatController = ChatController(ChatSocketService());
-    chatController.connect(sessionId: sessionController.session!.id);
-
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (_) => ChatPage(
-          sessionId: sessionController.session!.id,
-          sessionCode: sessionController.session!.code,
-          participantId: sessionController.participant!.id,
-          participantName: sessionController.participant!.name,
-          chatController: chatController,
-        ),
+        builder: (_) => const ChatRoomPage(),
       ),
     );
   }
@@ -155,7 +144,7 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                             5 * scale,
                             60 * scale,
                             5 * scale,
-                            30 * scale, // Aumentado para dar espaço ao fim do scroll
+                            30 * scale,
                           ),
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
