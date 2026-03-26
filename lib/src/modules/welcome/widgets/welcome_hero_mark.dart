@@ -71,7 +71,10 @@ class WelcomeHeroMark extends StatelessWidget {
               color: const Color.fromARGB(17, 255, 107, 107),
             ),
           ),
-          WelcomeIcon(scale: scale),
+          Positioned(
+            top: 20 * scale,
+            child: WelcomeIcon(scale: scale),
+          ),
         ],
       ),
     );
