@@ -8,6 +8,16 @@ class ChatRoomPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = <_ChatEntry>[
+      const _DateEntry('Ontem'),
+      const _SystemEntry('Ana entrou usando o codigo: ABC-123'),
+      const _MessageEntry(
+        senderName: 'Ana Silva',
+        senderInitials: 'AS',
+        text: 'Passei aqui so para testar o fluxo da sala.',
+        time: '22:10',
+        isMe: false,
+        avatarColor: Color(0xFF8B6CF6),
+      ),
       const _SystemEntry('Junior entrou usando o codigo: ABC-123'),
       const _DateEntry('Hoje'),
       const _MessageEntry(
@@ -41,16 +51,6 @@ class ChatRoomPage extends StatelessWidget {
         time: '14:35',
         isMe: true,
         avatarColor: Color(0xFFFF8A9A),
-      ),
-      const _DateEntry('Ontem'),
-      const _SystemEntry('Ana entrou usando o codigo: ABC-123'),
-      const _MessageEntry(
-        senderName: 'Ana Silva',
-        senderInitials: 'AS',
-        text: 'Passei aqui so para testar o fluxo da sala.',
-        time: '22:10',
-        isMe: false,
-        avatarColor: Color(0xFF8B6CF6),
       ),
     ];
 
