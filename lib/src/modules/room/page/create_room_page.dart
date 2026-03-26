@@ -20,7 +20,7 @@ class CreateRoomPage extends StatefulWidget {
 }
 
 class _CreateRoomPageState extends State<CreateRoomPage> {
-  static const double _designWidth = 330;
+  static const double _designWidth = 380;
 
   final controller = CreateRoomController();
 
@@ -28,16 +28,6 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
   void dispose() {
     controller.dispose();
     super.dispose();
-  }
-
-  Future<void> _copyCode() async {
-    await controller.copyCode();
-
-    if (!mounted) return;
-
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Codigo copiado com sucesso.')),
-    );
   }
 
   void _handleCreateRoom() {
@@ -99,10 +89,7 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                 ),
                               ),
                               SizedBox(height: 16 * scale),
-                              AppFieldLabel(
-                                label: 'Seu nome',
-                                scale: scale,
-                              ),
+                              AppFieldLabel(label: 'Seu nome', scale: scale),
                               SizedBox(height: 10 * scale),
                               AppInputBox(
                                 scale: scale,
@@ -153,15 +140,13 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                   SizedBox(width: 12 * scale),
                                   CreateRoomCopyButton(
                                     scale: scale,
-                                    onPressed: _copyCode,
+                                    copied: controller.copiedCode,
+                                    onPressed: controller.copyCode,
                                   ),
                                 ],
                               ),
                               SizedBox(height: 22 * scale),
-                              AppFieldLabel(
-                                label: 'Privacidade',
-                                scale: scale,
-                              ),
+                              AppFieldLabel(label: 'Privacidade', scale: scale),
                               SizedBox(height: 10 * scale),
                               Row(
                                 children: [

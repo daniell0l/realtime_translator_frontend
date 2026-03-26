@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -11,6 +12,8 @@ class CreateRoomController extends ChangeNotifier {
 
   late final String generatedCode;
   RoomPrivacy privacy = RoomPrivacy.public;
+  bool copiedCode = false;
+  Timer? _copyFeedbackTimer;
 
   CreateRoomController() {
     generatedCode = _generateRoomCode();
@@ -29,8 +32,17 @@ class CreateRoomController extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> copyCode() {
-    return Clipboard.setData(ClipboardData(text: generatedCode));
+  Future<void> copyCode() async {
+    await Clipboard.setData(ClipboardData(text: generatedCode));
+
+    _copyFeedbackTimer?.cancel();
+    copiedCode = true;
+    notifyListeners();
+
+    _copyFeedbackTimer = Timer(const Duration(seconds: 5), () {
+      copiedCode = false;
+      notifyListeners();
+    });
   }
 
   String _generateRoomCode() {
@@ -50,6 +62,7 @@ class CreateRoomController extends ChangeNotifier {
 
   @override
   void dispose() {
+    _copyFeedbackTimer?.cancel();
     nameController.removeListener(_notifyStateChanged);
     roomNameController.removeListener(_notifyStateChanged);
     nameController.dispose();

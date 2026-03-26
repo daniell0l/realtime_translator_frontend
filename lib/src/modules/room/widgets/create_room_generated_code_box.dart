@@ -36,11 +36,13 @@ class CreateRoomGeneratedCodeBox extends StatelessWidget {
 
 class CreateRoomCopyButton extends StatelessWidget {
   final double scale;
-  final VoidCallback onPressed;
+  final bool copied;
+  final Future<void> Function() onPressed;
 
   const CreateRoomCopyButton({
     super.key,
     required this.scale,
+    required this.copied,
     required this.onPressed,
   });
 
@@ -60,7 +62,7 @@ class CreateRoomCopyButton extends StatelessWidget {
         ),
         onPressed: onPressed,
         child: Icon(
-          Icons.content_copy_rounded,
+          copied ? Icons.check_rounded : Icons.content_copy_rounded,
           color: AppColors.textSecondary,
           size: 22 * scale,
         ),

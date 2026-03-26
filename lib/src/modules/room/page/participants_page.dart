@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
@@ -6,14 +7,42 @@ import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/app_card.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/app_page_header.dart';
 
-class ParticipantsPage extends StatelessWidget {
+class ParticipantsPage extends StatefulWidget {
   const ParticipantsPage({super.key});
 
+  @override
+  State<ParticipantsPage> createState() => _ParticipantsPageState();
+}
+
+class _ParticipantsPageState extends State<ParticipantsPage> {
   static const double _designWidth = 380;
+  static const String _roomCode = 'ABC-1234';
+  Timer? _copyFeedbackTimer;
+  bool _copied = false;
+
+  @override
+  void dispose() {
+    _copyFeedbackTimer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _handleCopyCode() async {
+    await Clipboard.setData(const ClipboardData(text: _roomCode));
+
+    _copyFeedbackTimer?.cancel();
+
+    if (!mounted) return;
+
+    setState(() => _copied = true);
+
+    _copyFeedbackTimer = Timer(const Duration(seconds: 5), () {
+      if (!mounted) return;
+      setState(() => _copied = false);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    const roomCode = 'ABC-1234';
     final participants = <_ParticipantItem>[
       const _ParticipantItem(
         initials: 'V',
@@ -61,7 +90,7 @@ class ParticipantsPage extends StatelessWidget {
               AppPageHeader(
                 scale: scale,
                 title: 'Participantes',
-                subtitle: '4 online â€¢ 5 total',
+                subtitle: '4 online • 5 total',
                 onBack: () => Navigator.pop(context),
               ),
               Expanded(
@@ -102,7 +131,7 @@ class ParticipantsPage extends StatelessWidget {
                                       ),
                                       SizedBox(height: 6 * scale),
                                       Text(
-                                        roomCode,
+                                        _roomCode,
                                         style: TextStyle(
                                           color: AppColors.textPrimary,
                                           fontSize: 22 * scale,
@@ -136,25 +165,9 @@ class ParticipantsPage extends StatelessWidget {
                                       borderRadius: BorderRadius.circular(
                                         18 * scale,
                                       ),
-                                      onTap: () async {
-                                        await Clipboard.setData(
-                                          const ClipboardData(text: roomCode),
-                                        );
-
-                                        if (!context.mounted) return;
-
-                                        ScaffoldMessenger.of(
-                                          context,
-                                        ).showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                              'Codigo da sala copiado.',
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                      onTap: _handleCopyCode,
                                       child: Icon(
-                                        Icons.copy_all_outlined,
+                                        _copied ? Icons.check_rounded : Icons.copy_all_outlined,
                                         color: Colors.white,
                                         size: 24 * scale,
                                       ),
@@ -350,4 +363,7 @@ class _ParticipantItem {
     this.highlighted = false,
   });
 }
+
+
+
 

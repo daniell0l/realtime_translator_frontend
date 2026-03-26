@@ -17,7 +17,7 @@ class JoinRoomPage extends StatefulWidget {
 }
 
 class _JoinRoomPageState extends State<JoinRoomPage> {
-  static const double _designWidth = 330;
+  static const double _designWidth = 380;
 
   final nameCtrl = TextEditingController();
   final codeCtrl = TextEditingController();
@@ -103,10 +103,7 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                             ),
                           ),
                           SizedBox(height: 16 * scale),
-                          AppFieldLabel(
-                            label: 'Seu nome',
-                            scale: scale,
-                          ),
+                          AppFieldLabel(label: 'Seu nome', scale: scale),
                           SizedBox(height: 10 * scale),
                           AppInputBox(
                             scale: scale,
@@ -122,10 +119,7 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                             ),
                           ),
                           SizedBox(height: 22 * scale),
-                          AppFieldLabel(
-                            label: 'Codigo da sala',
-                            scale: scale,
-                          ),
+                          AppFieldLabel(label: 'Codigo da sala', scale: scale),
                           SizedBox(height: 10 * scale),
                           AppInputBox(
                             scale: scale,
