@@ -4,17 +4,36 @@ import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
 class AppPageHeader extends StatelessWidget {
   final double scale;
   final String title;
+  final String? subtitle;
+  final double? backButtonSize;
+  final double? subtitleSpacing;
+  final double? titleTextHeight;
+  final double? subtitleTextHeight;
+  final Widget? trailing;
+  final bool centerTitle;
   final VoidCallback onBack;
 
   const AppPageHeader({
     super.key,
     required this.scale,
     required this.title,
+    this.subtitle,
+    this.backButtonSize,
+    this.subtitleSpacing,
+    this.titleTextHeight,
+    this.subtitleTextHeight,
+    this.trailing,
+    this.centerTitle = true,
     required this.onBack,
   });
 
   @override
   Widget build(BuildContext context) {
+    final resolvedBackButtonSize = backButtonSize ?? 40 * scale;
+    final resolvedSubtitleSpacing = subtitleSpacing ?? 4 * scale;
+    final resolvedTitleTextHeight = titleTextHeight ?? 1.0;
+    final resolvedSubtitleTextHeight = subtitleTextHeight ?? 1.0;
+
     return Container(
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(
@@ -40,7 +59,7 @@ class AppPageHeader extends StatelessWidget {
       child: SafeArea(
         bottom: false,
         child: SizedBox(
-          height: 56 * scale,
+          height: subtitle == null ? 56 * scale : 74 * scale,
           child: Stack(
             alignment: Alignment.center,
             children: [
@@ -50,8 +69,8 @@ class AppPageHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(24 * scale),
                   onTap: onBack,
                   child: Ink(
-                    width: 44 * scale,
-                    height: 44 * scale,
+                    width: resolvedBackButtonSize,
+                    height: resolvedBackButtonSize,
                     decoration: const BoxDecoration(
                       color: Colors.white24,
                       shape: BoxShape.circle,
@@ -63,12 +82,52 @@ class AppPageHeader extends StatelessWidget {
                   ),
                 ),
               ),
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 21 * scale,
-                  fontWeight: FontWeight.w800,
+              if (trailing != null)
+                Align(alignment: Alignment.centerRight, child: trailing!),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 56 * scale,
+                  right: trailing == null ? 56 * scale : 108 * scale,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: centerTitle
+                      ? CrossAxisAlignment.center
+                      : CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: centerTitle
+                          ? TextAlign.center
+                          : TextAlign.left,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 21 * scale,
+                        fontWeight: FontWeight.w800,
+                        height: resolvedTitleTextHeight,
+                      ),
+                    ),
+                    if (subtitle != null) ...[
+                      SizedBox(height: resolvedSubtitleSpacing),
+                      Text(
+                        subtitle!,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: centerTitle
+                            ? TextAlign.center
+                            : TextAlign.left,
+                        style: TextStyle(
+                          color: const Color(0xE6FFFFFF),
+                          fontSize: 13 * scale,
+                          fontWeight: FontWeight.w500,
+                          height: resolvedSubtitleTextHeight,
+                        ),
+                      ),
+                    ],
+                  ],
                 ),
               ),
             ],
