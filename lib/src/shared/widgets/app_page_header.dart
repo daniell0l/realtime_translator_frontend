@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
 
-class RoomHeader extends StatelessWidget {
+class AppPageHeader extends StatelessWidget {
   final double scale;
   final String title;
   final VoidCallback onBack;
 
-  const RoomHeader({
+  const AppPageHeader({
     super.key,
     required this.scale,
     required this.title,

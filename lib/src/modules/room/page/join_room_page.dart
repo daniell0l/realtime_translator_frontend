@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:realtime_translator_frontend/src/core/routes/app_routes.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
-import 'package:realtime_translator_frontend/src/modules/room/widgets/room_field_label.dart';
-import 'package:realtime_translator_frontend/src/modules/room/widgets/room_header.dart';
-import 'package:realtime_translator_frontend/src/modules/room/widgets/room_input_box.dart';
+import 'package:realtime_translator_frontend/src/shared/widgets/app_field_label.dart';
+import 'package:realtime_translator_frontend/src/shared/widgets/app_input_box.dart';
+import 'package:realtime_translator_frontend/src/shared/widgets/app_page_header.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/gradient_button.dart';
 
 class JoinRoomPage extends StatefulWidget {
@@ -74,7 +74,7 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
 
           return Column(
             children: [
-              RoomHeader(
+              AppPageHeader(
                 scale: scale,
                 title: 'Entrar na sala',
                 onBack: _handleBack,
@@ -103,12 +103,12 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                             ),
                           ),
                           SizedBox(height: 16 * scale),
-                          RoomFieldLabel(
+                          AppFieldLabel(
                             label: 'Seu nome',
                             scale: scale,
                           ),
                           SizedBox(height: 10 * scale),
-                          RoomInputBox(
+                          AppInputBox(
                             scale: scale,
                             child: TextField(
                               controller: nameCtrl,
@@ -122,12 +122,12 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                             ),
                           ),
                           SizedBox(height: 22 * scale),
-                          RoomFieldLabel(
+                          AppFieldLabel(
                             label: 'Codigo da sala',
                             scale: scale,
                           ),
                           SizedBox(height: 10 * scale),
-                          RoomInputBox(
+                          AppInputBox(
                             scale: scale,
                             child: TextField(
                               controller: codeCtrl,

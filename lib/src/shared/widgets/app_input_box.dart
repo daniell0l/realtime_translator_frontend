@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
 
-class RoomInputBox extends StatefulWidget {
+class AppInputBox extends StatefulWidget {
   final double scale;
   final Widget child;
 
-  const RoomInputBox({
+  const AppInputBox({
     super.key,
     required this.scale,
     required this.child,
   });
 
   @override
-  State<RoomInputBox> createState() => _RoomInputBoxState();
+  State<AppInputBox> createState() => _AppInputBoxState();
 }
 
-class _RoomInputBoxState extends State<RoomInputBox> {
+class _AppInputBoxState extends State<AppInputBox> {
   bool _hasFocus = false;
 
   @override
@@ -28,10 +28,7 @@ class _RoomInputBoxState extends State<RoomInputBox> {
     return FocusScope(
       onFocusChange: (hasFocus) {
         if (_hasFocus == hasFocus) return;
-
-        setState(() {
-          _hasFocus = hasFocus;
-        });
+        setState(() => _hasFocus = hasFocus);
       },
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 160),
