@@ -90,7 +90,7 @@ class _ParticipantsPageState extends State<ParticipantsPage> {
               AppPageHeader(
                 scale: scale,
                 title: 'Participantes',
-                subtitle: '4 online • 5 total',
+                subtitle: '4 online - 5 total',
                 onBack: () => Navigator.pop(context),
               ),
               Expanded(
@@ -167,7 +167,9 @@ class _ParticipantsPageState extends State<ParticipantsPage> {
                                       ),
                                       onTap: _handleCopyCode,
                                       child: Icon(
-                                        _copied ? Icons.check_rounded : Icons.copy_all_outlined,
+                                        _copied
+                                            ? Icons.check_rounded
+                                            : Icons.copy_all_outlined,
                                         color: Colors.white,
                                         size: 24 * scale,
                                       ),
@@ -363,7 +365,3 @@ class _ParticipantItem {
     this.highlighted = false,
   });
 }
-
-
-
-

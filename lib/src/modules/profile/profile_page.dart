@@ -88,14 +88,14 @@ class _ProfilePageState extends State<ProfilePage> {
                         SizedBox(height: 24 * scale),
                         GradientButton(
                           label: 'Sair',
-                          padding: EdgeInsets.symmetric(
-                            vertical: 16 * scale,
-                          ),
+                          padding: EdgeInsets.symmetric(vertical: 16 * scale),
                           borderRadius: 18 * scale,
                           fontSize: 18 * scale,
                           fontWeight: FontWeight.w800,
-                          onPressed: () =>
-                              Navigator.popUntil(context, (route) => route.isFirst),
+                          onPressed: () => Navigator.popUntil(
+                            context,
+                            (route) => route.isFirst,
+                          ),
                         ),
                       ],
                     ),
@@ -161,10 +161,7 @@ class _ProfilePageState extends State<ProfilePage> {
           Positioned(
             top: 14 * scale,
             left: 14 * scale,
-            child: _SmallEditButton(
-              scale: scale,
-              onTap: _editBanner,
-            ),
+            child: _SmallEditButton(scale: scale, onTap: _editBanner),
           ),
           Positioned(
             top: 56 * scale,
@@ -227,10 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
                   Positioned(
                     right: -6,
                     bottom: -2,
-                    child: _SmallEditButton(
-                      scale: scale,
-                      onTap: _pickAvatar,
-                    ),
+                    child: _SmallEditButton(scale: scale, onTap: _pickAvatar),
                   ),
                 ],
               ),
@@ -255,12 +249,6 @@ class _ProfilePageState extends State<ProfilePage> {
                   fontSize: 17 * scale,
                   fontWeight: FontWeight.w800,
                 ),
-              ),
-              SizedBox(width: 6 * scale),
-              Icon(
-                Icons.edit_outlined,
-                size: 16 * scale,
-                color: AppColors.textSecondary,
               ),
             ],
           ),
@@ -292,23 +280,18 @@ class _ProfilePageState extends State<ProfilePage> {
                 setState(() => _notificationsEnabled = !_notificationsEnabled),
           ),
           SizedBox(height: 14 * scale),
-          Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18 * scale),
-              border: Border.all(color: AppColors.textPrimary, width: 1.2),
+          _ProfileOptionRow(
+            scale: scale,
+            icon: Icons.help_outline_rounded,
+            iconColor: AppColors.cyan,
+            iconBackground: const Color(0xFFE8F9FF),
+            title: 'Ajuda e suporte',
+            trailing: Icon(
+              Icons.chevron_right_rounded,
+              color: AppColors.textSecondary,
+              size: 22 * scale,
             ),
-            child: _ProfileOptionRow(
-              scale: scale,
-              icon: Icons.help_outline_rounded,
-              iconColor: AppColors.cyan,
-              iconBackground: const Color(0xFFE8F9FF),
-              title: 'Ajuda e suporte',
-              trailing: Icon(
-                Icons.chevron_right_rounded,
-                color: AppColors.textSecondary,
-                size: 22 * scale,
-              ),
-            ),
+            onTap: () {},
           ),
         ],
       ),
@@ -398,10 +381,7 @@ class _ProfilePageState extends State<ProfilePage> {
             ),
           ),
           SizedBox(width: 8 * scale),
-          _SmallEditButton(
-            scale: scale,
-            onTap: _startEditingName,
-          ),
+          _SmallEditButton(scale: scale, onTap: _startEditingName),
         ],
       );
     }
@@ -581,9 +561,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           decoration: BoxDecoration(
                             color: color,
                             shape: BoxShape.circle,
-                            border: Border.all(
-                              color: AppColors.border,
-                            ),
+                            border: Border.all(color: AppColors.border),
                           ),
                         ),
                       ),
@@ -616,7 +594,9 @@ class _ProfilePageState extends State<ProfilePage> {
     }
 
     if (parts.length == 1) {
-      return parts.first.substring(0, parts.first.length >= 2 ? 2 : 1).toUpperCase();
+      return parts.first
+          .substring(0, parts.first.length >= 2 ? 2 : 1)
+          .toUpperCase();
     }
 
     return '${parts.first[0]}${parts[1][0]}'.toUpperCase();
@@ -627,10 +607,7 @@ class _SmallEditButton extends StatelessWidget {
   final double scale;
   final VoidCallback onTap;
 
-  const _SmallEditButton({
-    required this.scale,
-    required this.onTap,
-  });
+  const _SmallEditButton({required this.scale, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -687,9 +664,7 @@ class _InlineActionButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: highlighted ? AppColors.gradientStart : Colors.white,
           borderRadius: BorderRadius.circular(14 * scale),
-          border: highlighted
-              ? null
-              : Border.all(color: AppColors.border),
+          border: highlighted ? null : Border.all(color: AppColors.border),
           boxShadow: const [
             BoxShadow(
               color: Color(0x14000000),
@@ -733,43 +708,56 @@ class _ProfileOptionRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      borderRadius: BorderRadius.circular(18 * scale),
-      onTap: onTap,
-      child: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 12 * scale,
-          vertical: 10 * scale,
+    return Material(
+      color: Colors.transparent,
+      child: Ink(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(18 * scale),
         ),
-        child: Row(
-          children: [
-            Container(
-              width: 40 * scale,
-              height: 40 * scale,
-              decoration: BoxDecoration(
-                color: iconBackground,
-                shape: BoxShape.circle,
-              ),
-              alignment: Alignment.center,
-              child: Icon(
-                icon,
-                color: iconColor,
-                size: 20 * scale,
-              ),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(18 * scale),
+          onTap: onTap,
+          overlayColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.pressed) ||
+                states.contains(WidgetState.hovered) ||
+                states.contains(WidgetState.focused)) {
+              return const Color(0x14000000);
+            }
+
+            return Colors.transparent;
+          }),
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 12 * scale,
+              vertical: 10 * scale,
             ),
-            SizedBox(width: 14 * scale),
-            Expanded(
-              child: Text(
-                title,
-                style: TextStyle(
-                  color: AppColors.textPrimary,
-                  fontSize: 16 * scale,
-                  fontWeight: FontWeight.w700,
+            child: Row(
+              children: [
+                Container(
+                  width: 40 * scale,
+                  height: 40 * scale,
+                  decoration: BoxDecoration(
+                    color: iconBackground,
+                    shape: BoxShape.circle,
+                  ),
+                  alignment: Alignment.center,
+                  child: Icon(icon, color: iconColor, size: 20 * scale),
                 ),
-              ),
+                SizedBox(width: 14 * scale),
+                Expanded(
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      color: AppColors.textPrimary,
+                      fontSize: 16 * scale,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                ),
+                trailing,
+              ],
             ),
-            trailing,
-          ],
+          ),
         ),
       ),
     );
