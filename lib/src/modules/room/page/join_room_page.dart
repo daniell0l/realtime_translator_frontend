@@ -21,23 +21,29 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
   static const double _designWidth = 380;
 
   final nameCtrl = TextEditingController();
+  final emailCtrl = TextEditingController();
   final codeCtrl = TextEditingController();
 
   bool get isFormValid =>
-      nameCtrl.text.trim().isNotEmpty && codeCtrl.text.trim().isNotEmpty;
+      nameCtrl.text.trim().isNotEmpty &&
+      emailCtrl.text.trim().isNotEmpty &&
+      codeCtrl.text.trim().isNotEmpty;
 
   @override
   void initState() {
     super.initState();
     nameCtrl.addListener(_refreshForm);
+    emailCtrl.addListener(_refreshForm);
     codeCtrl.addListener(_refreshForm);
   }
 
   @override
   void dispose() {
     nameCtrl.removeListener(_refreshForm);
+    emailCtrl.removeListener(_refreshForm);
     codeCtrl.removeListener(_refreshForm);
     nameCtrl.dispose();
+    emailCtrl.dispose();
     codeCtrl.dispose();
     super.dispose();
   }
@@ -114,6 +120,23 @@ class _JoinRoomPageState extends State<JoinRoomPage> {
                                 textInputAction: TextInputAction.next,
                                 decoration: const InputDecoration(
                                   hintText: 'Digite seu nome',
+                                  border: InputBorder.none,
+                                  enabledBorder: InputBorder.none,
+                                  focusedBorder: InputBorder.none,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 22 * scale),
+                            AppFieldLabel(label: 'Email', scale: scale),
+                            SizedBox(height: 10 * scale),
+                            AppInputBox(
+                              scale: scale,
+                              child: TextField(
+                                controller: emailCtrl,
+                                keyboardType: TextInputType.emailAddress,
+                                textInputAction: TextInputAction.next,
+                                decoration: const InputDecoration(
+                                  hintText: 'Digite seu email',
                                   border: InputBorder.none,
                                   enabledBorder: InputBorder.none,
                                   focusedBorder: InputBorder.none,

@@ -107,6 +107,23 @@ class _CreateRoomPageState extends State<CreateRoomPage> {
                                   ),
                                 ),
                                 SizedBox(height: 22 * scale),
+                                AppFieldLabel(label: 'Email', scale: scale),
+                                SizedBox(height: 10 * scale),
+                                AppInputBox(
+                                  scale: scale,
+                                  child: TextField(
+                                    controller: controller.emailController,
+                                    keyboardType: TextInputType.emailAddress,
+                                    textInputAction: TextInputAction.next,
+                                    decoration: const InputDecoration(
+                                      hintText: 'Digite seu email',
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 22 * scale),
                                 AppFieldLabel(
                                   label: 'Nome da sala',
                                   scale: scale,

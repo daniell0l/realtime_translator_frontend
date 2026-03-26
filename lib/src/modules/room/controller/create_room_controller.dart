@@ -8,6 +8,7 @@ enum RoomPrivacy { public, private }
 
 class CreateRoomController extends ChangeNotifier {
   final nameController = TextEditingController();
+  final emailController = TextEditingController();
   final roomNameController = TextEditingController();
 
   late final String generatedCode;
@@ -18,11 +19,13 @@ class CreateRoomController extends ChangeNotifier {
   CreateRoomController() {
     generatedCode = _generateRoomCode();
     nameController.addListener(_notifyStateChanged);
+    emailController.addListener(_notifyStateChanged);
     roomNameController.addListener(_notifyStateChanged);
   }
 
   bool get isFormValid =>
       nameController.text.trim().isNotEmpty &&
+      emailController.text.trim().isNotEmpty &&
       roomNameController.text.trim().isNotEmpty;
 
   void selectPrivacy(RoomPrivacy value) {
@@ -64,8 +67,10 @@ class CreateRoomController extends ChangeNotifier {
   void dispose() {
     _copyFeedbackTimer?.cancel();
     nameController.removeListener(_notifyStateChanged);
+    emailController.removeListener(_notifyStateChanged);
     roomNameController.removeListener(_notifyStateChanged);
     nameController.dispose();
+    emailController.dispose();
     roomNameController.dispose();
     super.dispose();
   }
