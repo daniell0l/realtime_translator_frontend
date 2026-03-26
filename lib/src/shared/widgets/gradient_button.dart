@@ -76,12 +76,10 @@ class _GradientButtonState extends State<GradientButton> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(widget.borderRadius),
               child: Stack(
-                alignment: Alignment.center, // Garante alinhamento central
+                alignment: Alignment.center,
                 children: [
-                  // Botão original com suas propriedades exatas
                   SizedBox(
-                    width:
-                        double.infinity, // Garante que ocupe o espaço original
+                    width: double.infinity,
                     child: ElevatedButton(
                       onPressed: widget.isLoading ? null : widget.onPressed,
                       style: ElevatedButton.styleFrom(
@@ -113,13 +111,12 @@ class _GradientButtonState extends State<GradientButton> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 color: Colors.white,
-                                fontSize: widget.fontSize, // Fonte original
-                                fontWeight: widget.fontWeight, // Peso original
+                                fontSize: widget.fontSize,
+                                fontWeight: widget.fontWeight,
                               ),
                             ),
                     ),
                   ),
-                  // Overlay apenas para feedback visual de luz, sem alterar o botão
                   if (_isPressed || _isHovered)
                     Positioned.fill(
                       child: IgnorePointer(

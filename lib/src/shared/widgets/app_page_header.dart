@@ -38,9 +38,9 @@ class AppPageHeader extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.fromLTRB(
         16 * scale,
-        8 * scale,
+        0 * scale,
         16 * scale,
-        8 * scale,
+        0 * scale,
       ),
       decoration: const BoxDecoration(
         gradient: AppColors.primaryGradient,
@@ -65,19 +65,31 @@ class AppPageHeader extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(24 * scale),
-                  onTap: onBack,
+                child: Material(
+                  color: Colors.transparent,
                   child: Ink(
                     width: resolvedBackButtonSize,
                     height: resolvedBackButtonSize,
                     decoration: const BoxDecoration(
-                      color: Colors.white24,
+                      color: Colors.transparent,
                       shape: BoxShape.circle,
                     ),
-                    child: const Icon(
-                      Icons.arrow_back_rounded,
-                      color: Colors.white,
+                    child: InkWell(
+                      onTap: onBack,
+                      customBorder: const CircleBorder(),
+                      overlayColor: WidgetStateProperty.resolveWith((states) {
+                        if (states.contains(WidgetState.pressed) ||
+                            states.contains(WidgetState.hovered) ||
+                            states.contains(WidgetState.focused)) {
+                          return Colors.white.withValues(alpha: 0.18);
+                        }
+
+                        return Colors.transparent;
+                      }),
+                      child: const Icon(
+                        Icons.arrow_back_rounded,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),

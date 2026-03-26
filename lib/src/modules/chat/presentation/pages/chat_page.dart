@@ -56,34 +56,31 @@ class ChatRoomPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        bottom: false,
-        child: Column(
-          children: [
-            const _ChatTopBar(),
-            const Divider(height: 1, color: AppColors.border),
-            Expanded(
-              child: ListView.builder(
-                padding: const EdgeInsets.fromLTRB(14, 16, 14, 18),
-                itemCount: entries.length,
-                itemBuilder: (_, index) {
-                  final entry = entries[index];
+      body: Column(
+        children: [
+          const _ChatTopBar(),
+          const Divider(height: 1, color: AppColors.border),
+          Expanded(
+            child: ListView.builder(
+              padding: const EdgeInsets.fromLTRB(14, 16, 14, 18),
+              itemCount: entries.length,
+              itemBuilder: (_, index) {
+                final entry = entries[index];
 
-                  if (entry is _DateEntry) {
-                    return _DateDivider(label: entry.label);
-                  }
+                if (entry is _DateEntry) {
+                  return _DateDivider(label: entry.label);
+                }
 
-                  if (entry is _SystemEntry) {
-                    return _SystemMessage(text: entry.text);
-                  }
+                if (entry is _SystemEntry) {
+                  return _SystemMessage(text: entry.text);
+                }
 
-                  return _MessageBubble(message: entry as _MessageEntry);
-                },
-              ),
+                return _MessageBubble(message: entry as _MessageEntry);
+              },
             ),
-            const _ComposerBar(),
-          ],
-        ),
+          ),
+          const _ComposerBar(),
+        ],
       ),
     );
   }
@@ -94,124 +91,151 @@ class _ChatTopBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(14, 14, 18, 14),
-      child: Row(
-        children: [
-          InkWell(
-            onTap: () => Navigator.pop(context),
-            borderRadius: BorderRadius.circular(18),
-            child: Container(
-              width: 38,
-              height: 38,
+    final topPadding = MediaQuery.paddingOf(context).top;
+
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: AppColors.primaryGradient,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(24),
+          bottomRight: Radius.circular(24),
+        ),
+      ),
+      child: Padding(
+        padding: EdgeInsets.fromLTRB(14, topPadding + 14, 18, 16),
+        child: Row(
+          children: [
+            Container(
+              width: 42,
+              height: 42,
+              padding: const EdgeInsets.all(3),
               decoration: BoxDecoration(
-                color: const Color(0xFFF4F6FB),
-                borderRadius: BorderRadius.circular(14),
-              ),
-              alignment: Alignment.center,
-              child: const Icon(
-                Icons.arrow_back_rounded,
-                color: AppColors.textPrimary,
-                size: 20,
-              ),
-            ),
-          ),
-          Container(
-            width: 38,
-            height: 38,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: AppColors.primaryGradient,
-            ),
-            alignment: Alignment.center,
-            child: const Text(
-              'RM',
-              style: TextStyle(
                 color: Colors.white,
-                fontSize: 15,
-                fontWeight: FontWeight.w800,
+                shape: BoxShape.circle,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x2A000000),
+                    blurRadius: 10,
+                    offset: Offset(0, 4),
+                  ),
+                ],
               ),
-            ),
-          ),
-          const SizedBox(width: 14),
-          const Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Reuniao de equipe',
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Color(0xFF3542A0),
+                  shape: BoxShape.circle,
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                  'RM',
                   style: TextStyle(
-                    color: AppColors.textPrimary,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
-                SizedBox(height: 2),
-                Row(
-                  children: [
-                    Text(
-                      'ABC-1234',
-                      style: TextStyle(
-                        color: AppColors.textSecondary,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(width: 6),
-                    Icon(
-                      Icons.copy_all_outlined,
-                      size: 14,
-                      color: AppColors.textSecondary,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          InkWell(
-            onTap: () => Navigator.pushNamed(context, AppRoutes.participants),
-            borderRadius: BorderRadius.circular(14),
-            child: Container(
-              height: 38,
-              padding: const EdgeInsets.symmetric(horizontal: 12),
-              decoration: BoxDecoration(
-                color: const Color(0xFFF4F6FB),
-                borderRadius: BorderRadius.circular(14),
               ),
-              child: const Row(
+            ),
+            const SizedBox(width: 12),
+            const Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Icon(
-                    Icons.groups_2_outlined,
-                    size: 18,
-                    color: AppColors.gradientStart,
-                  ),
-                  SizedBox(width: 6),
                   Text(
-                    '4',
+                    'Reuniao de equipe',
                     style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    '4 membros online',
+                    style: TextStyle(
+                      color: Color(0xE6FFFFFF),
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ],
               ),
             ),
-          ),
-          const SizedBox(width: 12),
-          InkWell(
-            onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
-            borderRadius: BorderRadius.circular(12),
-            child: const Padding(
-              padding: EdgeInsets.all(4),
-              child: Icon(
-                Icons.more_vert_rounded,
-                color: AppColors.textSecondary,
-                size: 22,
+            Material(
+              color: Colors.transparent,
+              child: InkWell(
+                onTap: () =>
+                    Navigator.pushNamed(context, AppRoutes.participants),
+                borderRadius: BorderRadius.circular(14),
+                overlayColor: WidgetStateProperty.resolveWith((states) {
+                  if (states.contains(WidgetState.pressed) ||
+                      states.contains(WidgetState.hovered) ||
+                      states.contains(WidgetState.focused)) {
+                    return Colors.white.withValues(alpha: 0.18);
+                  }
+
+                  return Colors.transparent;
+                }),
+                child: Ink(
+                  height: 38,
+                  padding: const EdgeInsets.symmetric(horizontal: 12),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.18),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: const Row(
+                    children: [
+                      Icon(
+                        Icons.groups_2_outlined,
+                        size: 18,
+                        color: Colors.white,
+                      ),
+                      SizedBox(width: 6),
+                      Text(
+                        '4',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
               ),
             ),
-          ),
-        ],
+            const SizedBox(width: 10),
+            Material(
+              color: Colors.transparent,
+              child: Ink(
+                width: 30,
+                height: 30,
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                child: InkWell(
+                  onTap: () => Navigator.pushNamed(context, AppRoutes.profile),
+                  customBorder: const CircleBorder(),
+                  overlayColor: WidgetStateProperty.resolveWith((states) {
+                    if (states.contains(WidgetState.pressed) ||
+                        states.contains(WidgetState.hovered) ||
+                        states.contains(WidgetState.focused)) {
+                      return Colors.white.withValues(alpha: 0.18);
+                    }
+
+                    return Colors.transparent;
+                  }),
+                  child: Icon(
+                    Icons.more_vert_rounded,
+                    color: Colors.white.withValues(alpha: 0.92),
+                    size: 22,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
