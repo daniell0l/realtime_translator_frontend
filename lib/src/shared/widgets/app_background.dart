@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/theme/app_colors.dart';
-
 class AppBackground extends StatelessWidget {
   final Widget child;
 
@@ -10,7 +8,7 @@ class AppBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DecoratedBox(
-      decoration: const BoxDecoration(color: AppColors.background),
+      decoration: const BoxDecoration(color: Color(0xFFEAEFF7)),
       child: Stack(
         children: [
           const Positioned(

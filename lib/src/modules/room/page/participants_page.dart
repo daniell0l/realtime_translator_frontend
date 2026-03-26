@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/app_card.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/app_page_header.dart';
@@ -12,6 +13,7 @@ class ParticipantsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const roomCode = 'ABC-1234';
     final participants = <_ParticipantItem>[
       const _ParticipantItem(
         initials: 'V',
@@ -100,7 +102,7 @@ class ParticipantsPage extends StatelessWidget {
                                       ),
                                       SizedBox(height: 6 * scale),
                                       Text(
-                                        'ABC-1234',
+                                        roomCode,
                                         style: TextStyle(
                                           color: AppColors.textPrimary,
                                           fontSize: 22 * scale,
@@ -112,26 +114,51 @@ class ParticipantsPage extends StatelessWidget {
                                   ),
                                 ),
                                 SizedBox(width: 12 * scale),
-                                Container(
-                                  width: 52 * scale,
-                                  height: 52 * scale,
-                                  decoration: BoxDecoration(
-                                    gradient: AppColors.primaryGradient,
-                                    borderRadius: BorderRadius.circular(
-                                      18 * scale,
-                                    ),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                        color: Color(0x33735AF4),
-                                        blurRadius: 18,
-                                        offset: Offset(0, 8),
+                                Material(
+                                  color: Colors.transparent,
+                                  child: Ink(
+                                    width: 52 * scale,
+                                    height: 52 * scale,
+                                    decoration: BoxDecoration(
+                                      gradient: AppColors.primaryGradient,
+                                      borderRadius: BorderRadius.circular(
+                                        18 * scale,
                                       ),
-                                    ],
-                                  ),
-                                  child: Icon(
-                                    Icons.copy_all_outlined,
-                                    color: Colors.white,
-                                    size: 24 * scale,
+                                      boxShadow: const [
+                                        BoxShadow(
+                                          color: Color(0x33735AF4),
+                                          blurRadius: 18,
+                                          offset: Offset(0, 8),
+                                        ),
+                                      ],
+                                    ),
+                                    child: InkWell(
+                                      borderRadius: BorderRadius.circular(
+                                        18 * scale,
+                                      ),
+                                      onTap: () async {
+                                        await Clipboard.setData(
+                                          const ClipboardData(text: roomCode),
+                                        );
+
+                                        if (!context.mounted) return;
+
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              'Codigo da sala copiado.',
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.copy_all_outlined,
+                                        color: Colors.white,
+                                        size: 24 * scale,
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],
