@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
     final scale = layoutWidth / _designWidth;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
+      backgroundColor: Colors.transparent,
       body: AppBackground(
         child: Column(
           children: [

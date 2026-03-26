@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:realtime_translator_frontend/src/core/theme/app_colors.dart';
+import 'package:realtime_translator_frontend/src/shared/widgets/app_background.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/app_card.dart';
 import 'package:realtime_translator_frontend/src/shared/widgets/app_page_header.dart';
 
@@ -17,6 +18,7 @@ class ParticipantsPage extends StatefulWidget {
 class _ParticipantsPageState extends State<ParticipantsPage> {
   static const double _designWidth = 380;
   static const String _roomCode = 'ABC-1234';
+
   Timer? _copyFeedbackTimer;
   bool _copied = false;
 
@@ -79,140 +81,142 @@ class _ParticipantsPageState extends State<ParticipantsPage> {
     ];
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF8FAFC),
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          final layoutWidth = math.min(constraints.maxWidth, 380.0);
-          final scale = layoutWidth / _designWidth;
+      backgroundColor: Colors.transparent,
+      body: AppBackground(
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final layoutWidth = math.min(constraints.maxWidth, 380.0);
+            final scale = layoutWidth / _designWidth;
 
-          return Column(
-            children: [
-              AppPageHeader(
-                scale: scale,
-                title: 'Participantes',
-                subtitle: '4 online - 5 total',
-                onBack: () => Navigator.pop(context),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: EdgeInsets.fromLTRB(
-                    24 * scale,
-                    24 * scale,
-                    24 * scale,
-                    28 * scale,
-                  ),
-                  child: Align(
-                    alignment: Alignment.topCenter,
-                    child: SizedBox(
-                      width: layoutWidth,
-                      child: Column(
-                        children: [
-                          AppCard(
-                            padding: EdgeInsets.fromLTRB(
-                              24 * scale,
-                              18 * scale,
-                              18 * scale,
-                              18 * scale,
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Codigo da sala',
-                                        style: TextStyle(
-                                          color: AppColors.textSecondary,
-                                          fontSize: 15 * scale,
-                                          fontWeight: FontWeight.w500,
+            return Column(
+              children: [
+                AppPageHeader(
+                  scale: scale,
+                  title: 'Participantes',
+                  subtitle: '4 online - 5 total',
+                  onBack: () => Navigator.pop(context),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: EdgeInsets.fromLTRB(
+                      24 * scale,
+                      24 * scale,
+                      24 * scale,
+                      28 * scale,
+                    ),
+                    child: Align(
+                      alignment: Alignment.topCenter,
+                      child: SizedBox(
+                        width: layoutWidth,
+                        child: Column(
+                          children: [
+                            AppCard(
+                              padding: EdgeInsets.fromLTRB(
+                                24 * scale,
+                                18 * scale,
+                                18 * scale,
+                                18 * scale,
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'Codigo da sala',
+                                          style: TextStyle(
+                                            color: AppColors.textSecondary,
+                                            fontSize: 15 * scale,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
-                                      ),
-                                      SizedBox(height: 6 * scale),
-                                      Text(
-                                        _roomCode,
-                                        style: TextStyle(
-                                          color: AppColors.textPrimary,
-                                          fontSize: 22 * scale,
-                                          fontWeight: FontWeight.w800,
-                                          letterSpacing: 0.4,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(width: 12 * scale),
-                                Material(
-                                  color: Colors.transparent,
-                                  child: Ink(
-                                    width: 52 * scale,
-                                    height: 52 * scale,
-                                    decoration: BoxDecoration(
-                                      gradient: AppColors.primaryGradient,
-                                      borderRadius: BorderRadius.circular(
-                                        18 * scale,
-                                      ),
-                                      boxShadow: const [
-                                        BoxShadow(
-                                          color: Color(0x33735AF4),
-                                          blurRadius: 18,
-                                          offset: Offset(0, 8),
+                                        SizedBox(height: 6 * scale),
+                                        Text(
+                                          _roomCode,
+                                          style: TextStyle(
+                                            color: AppColors.textPrimary,
+                                            fontSize: 22 * scale,
+                                            fontWeight: FontWeight.w800,
+                                            letterSpacing: 0.4,
+                                          ),
                                         ),
                                       ],
                                     ),
-                                    child: InkWell(
-                                      borderRadius: BorderRadius.circular(
-                                        18 * scale,
+                                  ),
+                                  SizedBox(width: 12 * scale),
+                                  Material(
+                                    color: Colors.transparent,
+                                    child: Ink(
+                                      width: 52 * scale,
+                                      height: 52 * scale,
+                                      decoration: BoxDecoration(
+                                        gradient: AppColors.primaryGradient,
+                                        borderRadius: BorderRadius.circular(
+                                          18 * scale,
+                                        ),
+                                        boxShadow: const [
+                                          BoxShadow(
+                                            color: Color(0x33735AF4),
+                                            blurRadius: 18,
+                                            offset: Offset(0, 8),
+                                          ),
+                                        ],
                                       ),
-                                      onTap: _handleCopyCode,
-                                      child: Icon(
-                                        _copied
-                                            ? Icons.check_rounded
-                                            : Icons.copy_all_outlined,
-                                        color: Colors.white,
-                                        size: 24 * scale,
+                                      child: InkWell(
+                                        borderRadius: BorderRadius.circular(
+                                          18 * scale,
+                                        ),
+                                        onTap: _handleCopyCode,
+                                        child: Icon(
+                                          _copied
+                                              ? Icons.check_rounded
+                                              : Icons.copy_all_outlined,
+                                          color: Colors.white,
+                                          size: 24 * scale,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 24 * scale),
-                          AppCard(
-                            padding: EdgeInsets.fromLTRB(
-                              18 * scale,
-                              18 * scale,
-                              18 * scale,
-                              18 * scale,
-                            ),
-                            child: Column(
-                              children: [
-                                for (
-                                  var i = 0;
-                                  i < participants.length;
-                                  i++
-                                ) ...[
-                                  _ParticipantTile(
-                                    participant: participants[i],
-                                    scale: scale,
-                                  ),
-                                  if (i != participants.length - 1)
-                                    SizedBox(height: 14 * scale),
                                 ],
-                              ],
+                              ),
                             ),
-                          ),
-                        ],
+                            SizedBox(height: 24 * scale),
+                            AppCard(
+                              padding: EdgeInsets.fromLTRB(
+                                18 * scale,
+                                18 * scale,
+                                18 * scale,
+                                18 * scale,
+                              ),
+                              child: Column(
+                                children: [
+                                  for (
+                                    var i = 0;
+                                    i < participants.length;
+                                    i++
+                                  ) ...[
+                                    _ParticipantTile(
+                                      participant: participants[i],
+                                      scale: scale,
+                                    ),
+                                    if (i != participants.length - 1)
+                                      SizedBox(height: 14 * scale),
+                                  ],
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }

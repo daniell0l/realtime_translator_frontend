@@ -43,7 +43,7 @@ class AppBackground extends StatelessWidget {
               colors: [Color(0x33FFB0A9), Color(0x11AEEEF0)],
             ),
           ),
-          SafeArea(child: child),
+          child,
         ],
       ),
     );
