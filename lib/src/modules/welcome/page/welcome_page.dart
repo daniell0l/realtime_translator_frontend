@@ -11,7 +11,7 @@ import '../widgets/welcome_hero_mark.dart';
 class WelcomePage extends StatelessWidget {
   const WelcomePage({super.key});
 
-  static const double _designWidth = 250;
+  static const double _designWidth = 290;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +36,7 @@ class WelcomePage extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 14 * scale),
                       child: Column(
                         children: [
-                          SizedBox(height: 60 * scale * verticalSpacing),
+                          SizedBox(height: 90 * scale * verticalSpacing),
                           WelcomeHeroMark(scale: scale),
                           Text(
                             'ChameChat',
