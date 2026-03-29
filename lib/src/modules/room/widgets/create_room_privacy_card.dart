@@ -19,34 +19,41 @@ class CreateRoomPrivacyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderColor = selected ? AppColors.primary : const Color(0xFFD8E0EC);
-    final backgroundColor = selected ? const Color(0xFFF2F5FF) : Colors.white;
+    final borderColor = selected ? AppColors.primary : const Color(0xFFD6DEEA);
+    final backgroundColor = selected ? const Color(0xFFF6F8FF) : Colors.white;
     final textColor = selected ? AppColors.primary : AppColors.textSecondary;
 
-    return InkWell(
-      borderRadius: BorderRadius.circular(18 * scale),
-      onTap: onTap,
-      child: Ink(
-        height: 72 * scale,
-        decoration: BoxDecoration(
-          color: backgroundColor,
-          borderRadius: BorderRadius.circular(18 * scale),
-          border: Border.all(color: borderColor, width: selected ? 1.8 : 1.2),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: textColor, size: 22 * scale),
-            SizedBox(height: 6 * scale),
-            Text(
-              label,
-              style: TextStyle(
-                color: textColor,
-                fontSize: 15 * scale,
-                fontWeight: FontWeight.w600,
-              ),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        borderRadius: BorderRadius.circular(16 * scale),
+        onTap: onTap,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 160),
+          height: 72 * scale,
+          decoration: BoxDecoration(
+            color: backgroundColor,
+            borderRadius: BorderRadius.circular(16 * scale),
+            border: Border.all(
+              color: borderColor,
+              width: selected ? 1.8 : 1.3,
             ),
-          ],
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: textColor, size: 21 * scale),
+              SizedBox(height: 6 * scale),
+              Text(
+                label,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: 14.5 * scale,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
